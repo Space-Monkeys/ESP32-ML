@@ -64,30 +64,29 @@ void loop() {
 
   if(result == HIGH){
     baseURL = baseURL + "x=" + argX + "&" + "y=" + argy;
-    const char* response = api();
+    api();
   }
   delay(10000);
 }
 
 
 
-String api() {
+void api() {
 if ((WiFi.status() == WL_CONNECTED)) { //Check the current connection status
     HTTPClient http;
     //"http://bedb3e080ce9.ngrok.io/args?x=1&y=1"
     http.begin(baseURL); //Specify the URL
     int httpCode = http.GET();  //Make the request
     if (httpCode > 0) { //Check for the returning code
-         digitalWrite(13, HIGH);
         String payload = http.getString();
         Serial.println(httpCode);
         Serial.println(payload);
-        return(payload);
+        //return(payload);
         delay(10000);
       }
     else {
       Serial.println("Error on HTTP request");
-        return('Error on HTTP request');
+        //return('Error on HTTP request');
     }
     http.end(); //Free the resources
   }
